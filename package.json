@@ -10,6 +10,7 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "styled-components": "^3.3.0"
   },
@@ -40,8 +41,8 @@
   "scripts": {
     "prod": "webpack --mode production --config webpack.prod.js",
     "dev": "webpack-dev-server --mode development --open --config webpack.dev.js --hot",
-    "lint": "./node_modules/.bin/eslint src",
-    "lint:fix": "./node_modules/.bin/eslint --fix src",
+    "lint": "./node_modules/.bin/eslint . --ext .js,.jsx",
+    "lint:fix": "./node_modules/.bin/eslint --fix . --ext .js,.jsx",
     "flow": "flow"
   },
   "author": "",
