@@ -1,4 +1,11 @@
 {
-  "presets": [ "env", "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "presets": [ "env", "react", "flow"],
+  "plugins": [
+    "react-hot-loader/babel",
+    [
+      "module-resolver", {
+        "root": ["./src"]
+      }
+    ]
+  ]
 }
