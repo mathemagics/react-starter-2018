@@ -2,7 +2,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliGzipPlugin = require('brotli-webpack-plugin');
 
 const common = require('./webpack.common.js');
 
@@ -48,6 +48,13 @@ module.exports = merge(common, {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new CompressionPlugin(),
+    new BrotliGzipPlugin({
+      asset: '[path].br[query]',
+      algorithm: 'brotli',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8,
+      quality: 11,
+    }),
   ],
 });

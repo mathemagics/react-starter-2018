@@ -1,14 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import { hot } from 'react-hot-loader';
 
-const App = () => {
-  return (
-    <div>
-      <p>React here!</p>
-    </div>
-  );
-};
+const App = () => (
+  <div>
+    <p>React here!</p>
+  </div>
+);
 
-export default App;
-
-ReactDOM.render(<App />, document.getElementById("app"));
+export default hot(module)(App);

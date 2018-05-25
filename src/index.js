@@ -1,1 +1,1 @@
-import App from './component/root/AppRoot';
+import main from './component/root';
