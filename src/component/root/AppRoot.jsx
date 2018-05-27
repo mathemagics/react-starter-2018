@@ -1,7 +1,14 @@
 // Import modules ==============================================================
 import React from 'react';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware,
+} from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 import { ThemeProvider } from 'styled-components';
 import { hot } from 'react-hot-loader';
 
@@ -9,7 +16,9 @@ import { hot } from 'react-hot-loader';
 import HomeView from 'component/view/HomeView';
 
 // Import config ===============================================================
+import reducers from 'reducer';
 
+// TODO set a default theme
 const theme = {
   body: 'onyx',
   heading: 'black',
@@ -18,14 +27,31 @@ const theme = {
   background: '#fff',
 };
 
-const store = {};
+// Create a history of your choosing (we're using a browser history in this case)
+const history = createHistory();
+
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware(history);
+
+// Add the reducer to your store on the `router` key
+// Also apply our middleware for navigating
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer,
+  }),
+  applyMiddleware(middleware),
+);
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <Provider store={store}>
-      <Switch>
-        <Route exact path="/" component={HomeView} />
-      </Switch>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route exact path="/" component={HomeView} />
+          <Route exact path="/home" component={HomeView} />
+        </Switch>
+      </ConnectedRouter>
     </Provider>
   </ThemeProvider>
 );

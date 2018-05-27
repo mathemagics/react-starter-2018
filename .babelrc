@@ -1,5 +1,16 @@
 {
-  "presets": [ "env", "react", "flow"],
+  "presets": [
+    [
+      "@babel/preset-env", {
+        "shippedProposals": true,
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-react",
+    "@babel/preset-flow"
+  ],
   "plugins": [
     "react-hot-loader/babel",
     [

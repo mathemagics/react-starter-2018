@@ -5,6 +5,9 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   devtool: 'inline-source-map',
+  devServer: {
+    historyApiFallback: true,
+  },
   mode: 'development',
   plugins: [
     new webpack.DefinePlugin({
