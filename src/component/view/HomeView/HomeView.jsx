@@ -1,5 +1,10 @@
 import React from 'react';
 
-const HomeView = () => <div>HomeView</div>;
+// Import components =============================================================
+import Button from 'component/base/Button';
+
+const HomeView = () => (
+  <Button>HomeView</Button>
+);
 
 export default HomeView;

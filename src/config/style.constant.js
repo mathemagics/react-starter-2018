@@ -1,5 +1,3 @@
-// @flow
-
 export const colors = {
   black: '#101131',
   white: '#ffffff',

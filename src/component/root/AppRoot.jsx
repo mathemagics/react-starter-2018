@@ -1,9 +1,10 @@
 // Import modules ==============================================================
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { Switch, Route } from 'react-router-dom';
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ThemeProvider } from 'styled-components';
 import { hot } from 'react-hot-loader';
@@ -13,7 +14,6 @@ import HomeView from 'component/view/HomeView';
 
 // Import config ===============================================================
 import reducers from 'reducer';
-
 
 // Import styles ================================================================
 import './globalStyles';
@@ -27,25 +27,27 @@ const theme = {
   background: '#fff',
 };
 
-// Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history);
+const middleware = [
+  routerMiddleware(history),
+  thunk,
+];
 
-// Add the reducer to your store on the `router` key
-// Also apply our middleware for navigating
+// eslint-disable-next-line no-underscore-dangle
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
-  combineReducers({
-    ...reducers,
-    router: routerReducer,
-  }),
+  reducers,
   applyMiddleware(middleware),
+  composeEnhancers(),
 );
 
 if (module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('../../reducer', () => {
+    // eslint-disable-next-line global-require
     const nextRootReducer = require('reducer');
     store.replaceReducer(nextRootReducer);
   });
