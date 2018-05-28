@@ -4,7 +4,9 @@ import React from 'react';
 import Button from 'component/base/Button';
 
 const HomeView = () => (
-  <Button>HomeView</Button>
+  <Button onClick={() => {}}>
+    Home
+  </Button>
 );
 
 export default HomeView;
