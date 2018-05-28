@@ -4,13 +4,14 @@ import createStore from 'store';
 import renderApp from 'component/root';
 import reducer from 'reducer';
 
-const store = createStore({
-  reducer,
-});
 const history = createHistory();
 
+const store = createStore({
+  reducer,
+  history,
+});
+
 if (module.hot) {
-  // Enable Webpack hot module replacement for reducers
   module.hot.accept('./reducer', () => {
     // eslint-disable-next-line global-require
     const nextRootReducer = require('reducer');
