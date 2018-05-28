@@ -3,11 +3,7 @@ import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import {
-  ConnectedRouter,
-  routerReducer,
-  routerMiddleware,
-} from 'react-router-redux';
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ThemeProvider } from 'styled-components';
 import { hot } from 'react-hot-loader';
@@ -17,6 +13,10 @@ import HomeView from 'component/view/HomeView';
 
 // Import config ===============================================================
 import reducers from 'reducer';
+
+
+// Import styles ================================================================
+import './globalStyles';
 
 // TODO set a default theme
 const theme = {
@@ -42,6 +42,14 @@ const store = createStore(
   }),
   applyMiddleware(middleware),
 );
+
+if (module.hot) {
+  // Enable Webpack hot module replacement for reducers
+  module.hot.accept('../../reducer', () => {
+    const nextRootReducer = require('reducer');
+    store.replaceReducer(nextRootReducer);
+  });
+}
 
 const App = () => (
   <ThemeProvider theme={theme}>
